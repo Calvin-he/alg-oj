@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Alg-Contest" basedir="." default="run">
+	 <property name="problem" value="PC10131"/>
+    <target name="clean">
+        <delete dir="classes"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="classes"/>
+        <javac srcdir="src" destdir="classes" debug="on"/>
+    </target>
+
+    <target name="run" depends="clean, compile">
+        <java classname="Main" fork="true" 
+        	classpath="classes" input="input/${problem}.txt">
+        </java>
+    </target>
+
+</project>
