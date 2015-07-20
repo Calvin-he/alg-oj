@@ -4,61 +4,50 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 class Main {
-	public static void main(String args[]) // entry point from OS
-	{
+	Elephant[] elephants = new Elephant[1010];
+	int size = 0;
+	int[] aux = new int[1010];
 
-		Main myWork = new Main(); // create a dinamic instance
+	static class Elephant {
+		int w, s, seq;
+
+		Elephant(int w, int s, int seq) {
+			this.w = w;
+			this.s = s;
+			this.seq = seq;
+		}
+
+		boolean higherThan(Elephant o) {
+			return (w > o.w && s < o.s);
+		}
+	}
+
+	public static void main(String args[]) {
+
+		Main myWork = new Main();
 		myWork.readIn();
 		myWork.solve();
 	}
 
-	Elephant[] elephants = new Elephant[1010];
-	int size = 0;
-	Record[] aux = new Record[1010];
-	int auxSize = 0;
-
 	void solve() {
 		Arrays.sort(elephants, 0, size, new Comparator<Elephant>() {
 			public int compare(Elephant o1, Elephant o2) {
-				if (o1.w == o2.w) {
-					return o2.s - o1.s;
-				} else {
-					return o1.w - o2.w;
-				}
+				return o1.w - o2.w;
 			}
 		});
-
-		printElephants();
-		
-		this.aux[0] = new Record(this.elephants[0], 1);
-		this.auxSize = 1;
-		int si = 1;
+		// printElephants();
+		this.aux[0] = 1;
+		int si = 1, i;
 		while (si < this.size) {
-			Elephant cur = this.elephants[si];
-			int i;
-			for(i = auxSize-1; i>=0; --i){
-				if(aux[i].elephant.s > cur.s){
-					break;
+			aux[si] = 1;
+			for (i = 0; i < si; ++i) {
+				if (elephants[si].higherThan(elephants[i]) && aux[si] <= aux[i]) {
+					aux[si] = aux[i] + 1;
 				}
 			}
-			if(i>=0){
-				if(aux[i].elephant.w < cur.w){
-					aux[i+1] = new Record(cur, aux[i].n+1);
-					if(i==auxSize-1){
-						auxSize++;
-					}
-				}else{
-					aux[i] = new Record(cur, aux[i].n);
-				}
-			}
-			
-			System.out.printf("Round %d's record:\n", si);
-			printRecords();	
 			++si;
-			
 		}
-
-		System.out.println(this.aux[auxSize-1].n);
+		printRecords();
 	}
 
 	void readIn() {
@@ -67,7 +56,7 @@ class Main {
 		while (stdin.hasNextInt()) {
 			w = stdin.nextInt();
 			s = stdin.nextInt();
-			this.elephants[i] = new Elephant(w, s, i+1);
+			this.elephants[i] = new Elephant(w, s, i + 1);
 			++i;
 		}
 		this.size = i;
@@ -80,32 +69,29 @@ class Main {
 					+ this.elephants[i].s + " " + this.elephants[i].seq);
 		}
 	}
-	
-	void printRecords(){
-		for(int i=0; i<auxSize; i++){
-			System.out.println(String.valueOf(this.aux[i].elephant.w) + " "
-					+ this.aux[i].elephant.s + " " + this.aux[i].elephant.seq);
+
+	void printRecords() {
+		int maxi = 0, i;
+		for (i = 0; i < size; i++) {
+			if (aux[i] > aux[maxi]) {
+				maxi = i;
+			}
+		}
+		int[] arr = new int[aux[maxi]];
+		arr[aux[maxi] - 1] = elephants[maxi].seq;
+		for (i = maxi - 1; i >= 0; i--) {
+			if (aux[i] == aux[maxi] - 1
+					&& elephants[maxi].higherThan(elephants[i])) {
+				maxi = i;
+				arr[aux[maxi] - 1] = elephants[maxi].seq;
+				if (aux[maxi] == 1) {
+					break;
+				}
+			}
+		}
+		System.out.println(arr.length);
+		for (i = 0; i < arr.length; i++) {
+			System.out.println(arr[i]);
 		}
 	}
-
-	static class Elephant {
-		int w, s, seq;
-
-		Elephant(int w, int s, int seq) {
-			this.w = w;
-			this.s = s;
-			this.seq = seq;
-		}
-	}
-
-	static class Record {
-		Elephant elephant;
-		int n;
-
-		Record(Elephant e, int n) {
-			this.elephant = e;
-			this.n = n;
-		}
-	}
-
 }
