@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Alg-Contest" basedir="." default="run">
-	 <property name="problem" value="PC10131"/>
+	 <property name="problem" value="PC10069"/>
     <target name="clean">
         <delete dir="classes"/>
     </target>
 
     <target name="compile">
         <mkdir dir="classes"/>
-        <javac srcdir="src" destdir="classes" debug="on"/>
+        <javac srcdir="src" destdir="classes" 
+        	includeantruntime="yes" debug="on">
+        	<include name="${problem}.java"/>
+        </javac>
     </target>
 
     <target name="run" depends="clean, compile">
