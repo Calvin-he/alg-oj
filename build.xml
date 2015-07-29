@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Alg-Contest" basedir="." default="run">
-	 <property name="problem" value="UVA116"/>
+	 <property name="problem" value="UVA10003"/>
+	 <property name="src" value="uva" />
+	 <property name="classes" value="classes" />
+	 <property name="testcase" value="input" />
 	
-	
-    <target name="clean">
-        <delete dir="classes"/>
-    </target>
-
     <target name="compile">
-        <mkdir dir="classes"/>
-        <javac srcdir="src" destdir="classes" 
+        <mkdir dir="${classes}"/>
+        <javac srcdir="${src}" destdir="classes" 
         	includeantruntime="yes" debug="on">
         	<include name="${problem}.java"/>
         </javac>
     </target>
 
-    <target name="run" depends="clean, compile">
+    <target name="run" depends="create, clean, compile">
         <java classname="Main" fork="true" 
-        	classpath="classes" input="input/${problem}.txt">
+        	classpath="${classes}" input="${testcase}/${problem}.txt">
         </java>
     </target>
 
+    <target name="clean">
+        <delete dir="${classes}"/>
+    </target>
+	
+	<target name="create">
+		<copyfile src="${src}/template.java" dest="${src}/${problem}.java" forceoverwrite="false"/>
+		<copyfile src="${testcase}/template.txt" dest="${testcase}/${problem}.txt" forceoverwrite="false"/>
+	</target>
+	
 </project>
