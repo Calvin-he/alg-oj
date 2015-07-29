@@ -24,8 +24,8 @@
     </target>
 	
 	<target name="create">
-		<copyfile src="${src}/template.java" dest="${src}/${problem}.java" forceoverwrite="false"/>
-		<copyfile src="${testcase}/template.txt" dest="${testcase}/${problem}.txt" forceoverwrite="false"/>
+		<copy file="${src}/template.java"  tofile="${src}/${problem}.java" overwrite="false"/>
+		<copy file="${testcase}/template.txt" tofile="${testcase}/${problem}.txt" overwrite="false"/>
 	</target>
 	
 </project>
