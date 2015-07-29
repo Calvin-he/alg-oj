@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Alg-Contest" basedir="." default="run">
-	 <property name="problem" value="PC10069"/>
+	 <property name="problem" value="UVA10154"/>
     <target name="clean">
         <delete dir="classes"/>
     </target>
