@@ -3,7 +3,7 @@
 	 <property name="problem" value="UVA10003"/>
 	 <property name="src" value="uva" />
 	 <property name="classes" value="classes" />
-	 <property name="testcase" value="input" />
+	 <property name="testcase" value="testcase" />
 	
     <target name="compile">
         <mkdir dir="${classes}"/>
