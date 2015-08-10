@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Alg-Contest" basedir="." default="run">
-	 <property name="problem" value="UVA10271"/>
+	 <property name="problem" value="UVA10201"/>
 	 <property name="src" value="uva" />
 	 <property name="classes" value="classes" />
 	 <property name="testcase" value="testcase" />
